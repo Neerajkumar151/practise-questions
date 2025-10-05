@@ -57,7 +57,7 @@ Placement-Prep/
 
 | Platform       | Count (approx.) |
 |----------------|----------------|
-| LeetCode       | 110             |
+| LeetCode       | 115             |
 | GeeksforGeeks  | 90              |
 | LeetCode SQL   | 2               |
 
