@@ -92,8 +92,8 @@ git clone https://github.com/<your-username>/Placement-Prep.git
 
 ## 🏆 Goals
 
-- Solve 200+ problems covering all major DSA topics.  
-- Solve 2+ SQL problems for database interview preparation.  
+- Solve 350+ problems covering all major DSA topics.  
+- Solve 100+ SQL problems for database interview preparation.  
 - Share knowledge and help others prepare for placements.  
 - Track my progress and improvement over time.  
 
