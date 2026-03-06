@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mandi Prices - 20 Records</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background-color: #f4f4f4; }
+    button { padding: 10px 15px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<h2>Latest 20 Mandi Prices</h2>
+<button onclick="getPrices()">Fetch Prices</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>District</th>
+      <th>Commodity</th>
+      <th>Market</th>
+      <th>Min</th>
+      <th>Max</th>
+      <th>Modal</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody"></tbody>
+</table>
+
+<script>
+const API_KEY = "579b464db66ec23bdd0000015448cfc3e468422b7cf324453d2109c4";
+const BASE_URL = "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070";
+
+async function getPrices() {
+  const response = await fetch(
+    `${BASE_URL}?api-key=${API_KEY}&format=json&limit=100`
+  );
+
+  const data = await response.json();
+
+  const tableBody = document.getElementById("tableBody");
+  tableBody.innerHTML = "";
+
+  const selected = [];
+  const stateCount = {};
+
+  for (let item of data.records) {
+    const state = item.state;
+
+    if (!stateCount[state]) {
+      stateCount[state] = 0;
+    }
+
+    if (stateCount[state] < 2) {
+      selected.push(item);
+      stateCount[state]++;
+    }
+
+    if (selected.length === 20) break;
+  }
+
+  selected.forEach(item => {
+    const row = `
+      <tr>
+        <td>${item.state}</td>
+        <td>${item.district}</td>
+        <td>${item.commodity}</td>
+        <td>${item.market}</td>
+        <td>${item.min_price}</td>
+        <td>${item.max_price}</td>
+        <td>${item.modal_price}</td>
+        <td>${item.arrival_date}</td>
+      </tr>
+    `;
+    tableBody.innerHTML += row;
+  });
+
+  console.log("Unique States:", Object.keys(stateCount).length);
+}
+</script>
+
+</body>
+</html>
